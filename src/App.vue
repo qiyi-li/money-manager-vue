@@ -1,14 +1,18 @@
 <template>
   <div>
     <router-view/>
-    <hr/>
   </div>
 </template>
 
 
 <style lang="scss">
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
   body{
-    background-color: skyblue;
+
   }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
