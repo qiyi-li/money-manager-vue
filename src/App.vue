@@ -10,9 +10,8 @@
 
 
 <style lang="scss">
-  @import "~@/assets/style/test.scss";
   body{
-    background-color: $red;
+    background-color: skyblue;
   }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
