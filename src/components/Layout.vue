@@ -1,6 +1,6 @@
 <template>
-  <div class="nav-wrapper">
-    <div class="content">
+  <div class="layout-wrapper" :class="classPrefix && `${classPrefix}-wrapper`">
+    <div class="content" :class="classPrefix && `${classPrefix}-content`">
       <slot/>
       <!-- slot 可以用来当作插槽，在引入时，将外面写好的数据插入到这个地方 -->
     </div>
@@ -10,12 +10,13 @@
 
 <script lang="ts">
   export default {
+    props:['classPrefix'],
     name: 'Layout'
   };
 </script>
 
 <style scoped lang="scss">
-  .nav-wrapper {
+  .layout-wrapper {
     display: flex;
     flex-direction: column;
     height: 100vh;
