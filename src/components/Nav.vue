@@ -23,6 +23,7 @@
 </script>
 
 <style scoped lang="scss">  //scoped 表示 .nav 只会影响 当前template 里面 添加了 .nav 属性的元素
+@import "~@/assets/style/helper.scss";
 nav {
   display: flex;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.35);
@@ -42,7 +43,7 @@ nav {
     }
   };
   >.item.selected{
-    color: darkorange;
+    color: $color-highlight;
     font-size: 14px;
   }
 }
