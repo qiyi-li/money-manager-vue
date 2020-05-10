@@ -20,7 +20,7 @@
       </button>
       <button class="ok">OK</button>
       <button>.</button>
-      <button class="zero">0</button>
+      <button >0</button>
       <button>
         <Icon name="delete"/>
       </button>
@@ -53,19 +53,22 @@
 
     .buttons {
       @extend %clearFix;
+      padding-right: calc(25% - 70px);
 
       > button {
-        width: 25%;
+        width: 64px;
         height: 64px;
+        margin-left: calc(25% - 64px);
+
         float: left;
         border: none;
         background: transparent;
         font-size: 20px;
 
+
         &.ok {
           height: 64px;
-          width: 64px;
-          margin-right: 16px;
+
           float: right;
           background-color: $color-highlight;
           border-radius: 50%;
@@ -89,6 +92,21 @@
           color: $color-highlight;
         }
 
+      }
+      @keyframes move{
+        from{
+          background: rgba(0,0,0,0);
+          font-weight: 500;
+        }
+        to{
+          background-color: rgba(0, 0, 0, 0.1);
+          font-weight: 600;
+        }
+      }
+      button:not(.ok):hover {
+        animation: .5s linear ;
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 50%;
       }
     }
   }
