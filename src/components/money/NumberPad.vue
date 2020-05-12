@@ -1,27 +1,27 @@
 <template>
   <div class="numberPad">
-    <div class="output">100</div>
+    <div class="output">{{output}}</div>
     <div class="buttons  ">
-      <button>1</button>
-      <button>2</button>
-      <button>3</button>
-      <button class="ac">AC</button>
-      <button>4</button>
-      <button>5</button>
-      <button>6</button>
-      <button>
+      <button @click="inputContent">1</button>
+      <button @click="inputContent">2</button>
+      <button @click="inputContent">3</button>
+      <button class="ac" @click="clear">AC</button>
+      <button @click="inputContent">4</button>
+      <button @click="inputContent">5</button>
+      <button @click="inputContent">6</button>
+      <button @click="add">
         <Icon name="add"/>
       </button>
-      <button>7</button>
-      <button>8</button>
-      <button>9</button>
-      <button>
+      <button @click="inputContent">7</button>
+      <button @click="inputContent">8</button>
+      <button @click="inputContent">9</button>
+      <button @click="reduce">
         <Icon name="reduce" class="xxx"/>
       </button>
-      <button class="ok">OK</button>
-      <button>.</button>
-      <button >0</button>
-      <button>
+      <button class="ok" @click="ok ">OK</button>
+      <button @click="inputContent">.</button>
+      <button @click="inputContent">0</button>
+      <button @click="remove">
         <Icon name="delete"/>
       </button>
     </div>
@@ -29,9 +29,62 @@
 </template>
 
 <script lang="ts">
-  export default {
-    name: 'NumberPad'
-  };
+  import Vue from 'vue';
+  import {Component} from 'vue-property-decorator';
+
+  @Component
+  export default class NumberPad extends Vue {
+    output = '0';
+
+    inputContent(event: MouseEvent) {
+      const button = (event.target as HTMLButtonElement); //强制指定类型
+      const input = button.textContent as string;
+      // const input=button.textContent!
+      if (this.output.length === 16) {
+        return;
+      }
+      if (this.output === '0') {
+        if ('0123456789'.indexOf(input) >= 0) {
+          this.output = input;
+        } else {
+          this.output += input;
+        }
+        return;
+      }
+      if (this.output.indexOf('.') >= 0 && input === '.') {
+        return;
+      }
+      this.output += input;
+    }
+
+    remove() {
+      if (this.output.length === 1) {
+        this.output = '0';
+      } else {
+        this.output = this.output.slice(0, -1);
+      }
+
+    }
+
+    clear() {
+      this.output = '0';
+    }
+
+    add() {
+      console.log('add');
+    }
+
+    reduce() {
+      console.log('reduce');
+    }
+
+    ok() {
+      console.log('ok');
+    }
+
+
+  }
+
 </script>
 
 <style scoped lang="scss">
@@ -48,6 +101,7 @@
       padding: 10px 0;
       margin: 0 16px;
       text-align: right;
+      height: 72px;
       /*border-bottom: 1px solid #edeff0;*/
     }
 

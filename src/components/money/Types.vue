@@ -11,8 +11,42 @@
   </div>
 </template>
 
-<script lang="js">
-  export default {
+<script lang="ts">
+  import Vue from 'vue';
+  import {Component, Prop} from 'vue-property-decorator';
+
+  @Component
+  export default class Types extends Vue {
+    //data
+    type = '-';  //'-' 表示支出，'+' 表示收入
+
+    @Prop(Number)  xxx: number | undefined
+    //Prop 告诉 Vue xxx 不是 data，是 Prop
+    // Number 告诉 Vue xxx 运行时 是个 Number
+    // xxx  属性名
+    //number | undefined  告诉 TS xxx 的编译时类型
+
+
+    //methods
+    selectType(type: string) {
+      if (type !== '-' && type !== '+') {// type 只能是 '-' 和 '+' 中的一个
+        throw new Error('type is unknown');
+      }
+      this.type = type;
+    }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    mounted(){
+      if(this.xxx===undefined){
+        console.log('没有 xxx')
+      }else{
+        console.log(this.xxx.toString());
+      }
+    }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    created(){}
+  }
+
+  /*export default {
     name: 'Types',
     props:['xxx'],
     data() {
@@ -20,7 +54,6 @@
         type: '-' //'-' 表示支出，'+' 表示收入
       };
     },
-    mounted(){console.log(this.xxx);},
     methods: {
       selectType(type) {// type 只能是 '-' 和 '+' 中的一个
         if (type !== '-' && type !== '+') {
@@ -29,7 +62,7 @@
         this.type = type;
       }
     }
-  };
+  };*/
 </script>
 
 <style scoped lang="scss">
