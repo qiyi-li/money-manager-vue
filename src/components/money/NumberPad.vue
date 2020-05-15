@@ -122,39 +122,40 @@
         font-size: 20px;
 
 
-        &.ok {
-          height: 64px;
+      }
 
-          float: right;
-          background-color: $color-highlight;
-          border-radius: 50%;
-          color: white;
+      .ok {
+        height: 64px;
 
-        }
-
-        &.zero {
-          width: 25%;
-        }
-
-        &.ac {
-          color: $color-highlight;
-          font-size: 1.3em;
-          font-weight: 500;
-        }
-
-        > .icon {
-          height: 1.3em;
-          width: 1.3em;
-          color: $color-highlight;
-        }
+        float: right;
+        background-color: $color-highlight;
+        border-radius: 50%;
+        color: white;
 
       }
-      @keyframes move{
-        from{
-          background: rgba(0,0,0,0);
+
+      .zero {
+        width: 25%;
+      }
+
+      .ac {
+        color: $color-highlight;
+        font-size: 1.3em;
+        font-weight: 500;
+      }
+
+      > .icon {
+        height: 1.3em;
+        width: 1.3em;
+        color: $color-highlight;
+      }
+
+      @keyframes move {
+        from {
+          background: rgba(0, 0, 0, 0);
           font-weight: 500;
         }
-        to{
+        to {
           background-color: rgba(0, 0, 0, 0.1);
           font-weight: 600;
         }
