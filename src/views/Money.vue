@@ -15,28 +15,20 @@
   import Notes from '@/components/money/Notes.vue';
   import Tags from '@/components/money/Tags.vue';
   import {Component, Watch} from 'vue-property-decorator';
+  import model from '@/model';
 
+  const recordList = model.fetch();
 
   //TS 的类型声明
-  type Record = {
-    tags: string[];
-    notes: string;
-    type: string;
-    amount: number; // 数据类型 object | string | number | undefined | boor | null | symbol
-    createdAt: Date | undefined;  //类 -- 构造函数
-    //createAt?: Date  同上
-
-  }
-  const recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
   @Component({
     components: {Tags, Notes, Types, NumberPad},
   })
   export default class Money extends Vue {
     tags = ['衣', '食', '住', '行'];
 
-    recordList: Record[] = recordList;
+    recordList: RecordItem[] = recordList;
 
-    record: Record = {
+    record: RecordItem = {
       tags: [], notes: '', type: '-', amount: 0, createdAt: undefined
     };
 
@@ -54,14 +46,14 @@
     }
 
     saveRecord() {
-      const record2: Record = JSON.parse(JSON.stringify(this.record));
+      const record2: RecordItem = model.colon(this.record);
       record2.createdAt = new Date();
       this.recordList.push(record2);
     }
 
     @Watch('recordList')
     onReactListChange(){
-      window.localStorage.setItem('recordList',JSON.stringify(this.recordList))
+      model.save(this.recordList)
     }
   }
 </script>
