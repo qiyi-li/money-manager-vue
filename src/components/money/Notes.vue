@@ -18,7 +18,8 @@
     value = '';
 
     @Watch('value')
-    onValueChanged(value: string, oldValue: string) {
+    onValueChanged(value: string) {
+      //(value: string, oldValue: string)
        this.$emit('update:value',value)
     }
   }
