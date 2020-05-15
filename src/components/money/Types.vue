@@ -1,10 +1,10 @@
 <template>
   <div>
     <ul class="types">
-      <li :class="type === '-' &&'selected'"
+      <li :class="value === '-' &&'selected'"
           @click="selectType('-')">支出
       </li>
-      <li :class="type === '+' && 'selected'"
+      <li :class="value === '+' && 'selected'"
           @click="selectType('+')">收入
       </li>
     </ul>
@@ -17,33 +17,15 @@
 
   @Component
   export default class Types extends Vue {
-    //data
-    type = '-';  //'-' 表示支出，'+' 表示收入
-
-    @Prop(Number)  xxx: number | undefined
-    //Prop 告诉 Vue xxx 不是 data，是 Prop
-    // Number 告诉 Vue xxx 运行时 是个 Number
-    // xxx  属性名
-    //number | undefined  告诉 TS xxx 的编译时类型
-
+  @Prop() readonly value!: string;
 
     //methods
     selectType(type: string) {
       if (type !== '-' && type !== '+') {// type 只能是 '-' 和 '+' 中的一个
         throw new Error('type is unknown');
       }
-      this.type = type;
+      this.$emit('update:value', type);
     }
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    mounted(){
-      if(this.xxx===undefined){
-        console.log('没有 xxx')
-      }else{
-        console.log(this.xxx.toString());
-      }
-    }
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    created(){}
   }
 
   /*export default {
