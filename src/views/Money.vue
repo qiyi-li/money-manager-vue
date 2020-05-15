@@ -1,6 +1,5 @@
 <template>
   <Layout class-prefix="layout">
-    {{recordList}}
     <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
     <Types :value.sync="record.type"/>
     <Notes @update:value="onUpdateNotes"/>
@@ -15,16 +14,18 @@
   import Notes from '@/components/money/Notes.vue';
   import Tags from '@/components/money/Tags.vue';
   import {Component, Watch} from 'vue-property-decorator';
-  import model from '@/model';
+  import recordListModel from '@/models/recordListModel';
+  import tagListModel from '@/models/tagListModel';
 
-  const recordList = model.fetch();
+  const recordList = recordListModel.fetch();
+  const tagList = tagListModel.fetch();
 
   //TS 的类型声明
   @Component({
     components: {Tags, Notes, Types, NumberPad},
   })
   export default class Money extends Vue {
-    tags = ['衣', '食', '住', '行'];
+    tags = tagList;
 
     recordList: RecordItem[] = recordList;
 
@@ -46,14 +47,14 @@
     }
 
     saveRecord() {
-      const record2: RecordItem = model.colon(this.record);
+      const record2: RecordItem = recordListModel.colon(this.record);
       record2.createdAt = new Date();
       this.recordList.push(record2);
     }
 
     @Watch('recordList')
     onReactListChange(){
-      model.save(this.recordList)
+      recordListModel.save(this.recordList);
     }
   }
 </script>
