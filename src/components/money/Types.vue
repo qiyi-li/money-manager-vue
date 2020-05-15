@@ -3,9 +3,11 @@
     <ul class="types">
       <li :class="value === '-' &&'selected'"
           @click="selectType('-')">支出
+        <div class="line"></div>
       </li>
       <li :class="value === '+' && 'selected'"
           @click="selectType('+')">收入
+        <div class="line"></div>
       </li>
     </ul>
   </div>
@@ -28,23 +30,6 @@
     }
   }
 
-  /*export default {
-    name: 'Types',
-    props:['xxx'],
-    data() {
-      return {
-        type: '-' //'-' 表示支出，'+' 表示收入
-      };
-    },
-    methods: {
-      selectType(type) {// type 只能是 '-' 和 '+' 中的一个
-        if (type !== '-' && type !== '+') {
-          throw new Error('type is unknown');
-        }
-        this.type = type;
-      }
-    }
-  };*/
 </script>
 
 <style scoped lang="scss">
@@ -64,37 +49,23 @@
       align-items: center;
       position: relative;
 
-
-
-      &.selected::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 3px;
+      .line{
         background-color: $color-highlight;
-        @keyframes tra  {
-          from{
-            width: 0;
-          }
-          to{
-            width: 100%;
-          }
-        }
-        animation:0.3s tra ease-in-out forwards;
+        height: 3px;
+        width: 0;
+        position: absolute;
+        left: 50%;
+        transform:translate(-50%);
+        bottom: 0;
       }
 
       &.selected {
-        @keyframes color  {
-          from{
-            color: inherit;
-          }
-          to{
-            color: $color-highlight;
-          }
+        color: $color-highlight;
+        transition:color .3s;
+        .line{
+          width: 100%;
+          transition: width .3s;
         }
-        animation:0.3s color ease-in-out forwards;
       }
 
     }
