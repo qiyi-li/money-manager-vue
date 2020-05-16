@@ -50,6 +50,7 @@
 
   .tags {
     font-size: 14px;
+    background: white;
     padding: 16px;
     flex-grow: 1;
     display: flex;
@@ -84,7 +85,6 @@
         background: transparent;
         border: none;
         color: #999;
-        border-bottom: 1px solid;
         padding: 0 3px;;
       }
     }

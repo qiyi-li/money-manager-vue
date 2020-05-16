@@ -36,7 +36,7 @@
   @import "~@/assets/style/helper.scss";
 
   .types {
-    background: rgb(241, 244, 245);
+    background-color:rgba(0,0,0,0.03);
     display: flex;
     text-align: center;
     font-size: 24px;
