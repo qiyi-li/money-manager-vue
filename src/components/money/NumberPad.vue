@@ -16,7 +16,7 @@
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
       <button @click="reduce">
-        <Icon name="reduce" class="xxx"/>
+        <Icon name="reduce"/>
       </button>
       <button class="ok" @click="ok ">OK</button>
       <button @click="inputContent">.</button>
@@ -35,7 +35,11 @@
   @Component
   export default class NumberPad extends Vue {
     output = '0';
-
+    n1=0
+    n2=0
+    n='0'
+    sign=''
+    result=0
     inputContent(event: MouseEvent) {
       const button = (event.target as HTMLButtonElement); //强制指定类型
       const input = button.textContent as string;
@@ -71,16 +75,30 @@
     }
 
     add() {
-      console.log(this.output);
+      this.n=this.output
+      this.n1=parseInt(this.n)
+      this.sign='+'
+      this.output='0'
     }
 
     reduce() {
-      console.log('reduce');
+      this.n1=parseInt(this.output)
+      this.sign='-'
+      this.output='0'
     }
 
     ok() {
-      this.$emit('update:value',this.output)
-      this.$emit('submit',this.output)
+      this.n2=parseInt(this.output)
+      if(this.sign==='+'){
+        this.result=this.n1 + this.n2
+      }else if(this.sign==='-'){
+        this.result=this.n1-this.n2
+      }else{
+        this.result=parseInt(this.output)
+      }
+      console.log(this.result);
+      this.$emit('update:value',this.result)
+      this.$emit('submit',this.result)
       this.output='0'
     }
 
@@ -160,8 +178,8 @@
           font-weight: 600;
         }
       }
-      button:not(.ok):hover {
-        animation: .5s linear ;
+      button:not(.ok):focus {
+        animation: .2s linear ;
         background-color: rgba(0, 0, 0, 0.1);
         border-radius: 50%;
       }
