@@ -8,7 +8,8 @@
                 placeholder="在这里输入备注"
                 @update:value="onUpdateNotes"/>
     </div>
-    <Tags :data-source.sync="tags" @update:value="onUpdateTag"/>
+    <!--    <Tags :data-source.sync="tags" @update:value="onUpdateTag"/>-->
+    <Tags @update:value="onUpdateTags"/>
   </Layout>
 </template>
 
@@ -24,21 +25,28 @@
   //TS 的类型声明
   @Component({
     components: {Tags, FormItem, Types, NumberPad},
+    computed: {
+      count() {
+        return store.count;
+      },
+      recordList() {
+        return store.recordList;
+      },
+    }
   })
   export default class Money extends Vue {
-    tags = store.tagList;
 
-    recordList = store.recordList;
+    add() {
+      store.addCount();
+    }
 
     record: RecordItem = {
       tags: [], notes: '', type: '-', amount: 0, createdAt: undefined
     };
 
-
-    onUpdateTag(value: string[]) {
+    onUpdateTags(value: []){
       this.record.tags = value;
     }
-
     onUpdateNotes(value: string) {
       this.record.notes = value;
     }
@@ -46,7 +54,6 @@
     onUpdateAmount(value: number) {
       this.record.amount = value;
     }
-
     saveRecord() {
       store.createRecord(this.record)
     }
