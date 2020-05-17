@@ -1,14 +1,16 @@
 const localStorageKeyName = 'recordList';
 const recordListModel = {
-  colon(data: RecordItem[] | RecordItem){
-    return JSON.parse(JSON.stringify(data))
+  data: [] as RecordItem[],
+  colon(data: RecordItem[] | RecordItem) {
+    return JSON.parse(JSON.stringify(data));
   },
   fetch() {
-    return JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]') as RecordItem[];
-    //在后面定义上 返回值的类型
+    this.data =
+      JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]') as RecordItem[];
+    return this.data;
   },
-  save(data: RecordItem[]) {
-    window.localStorage.setItem(localStorageKeyName, JSON.stringify(data));
+  save() {
+    window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.data));
   }
 };
 export default recordListModel
