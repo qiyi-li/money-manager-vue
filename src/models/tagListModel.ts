@@ -13,7 +13,7 @@ type TagListModel = {
   remove: (id: string) => boolean;
   save: () => void; //void 表示 空
 }
-const tagListModel: TagListModel = {
+const  tagListModel: TagListModel = {
   data: [],
   fetch() {
     this.data = JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]');

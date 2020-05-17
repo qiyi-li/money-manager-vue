@@ -20,40 +20,32 @@
 <script lang="ts">
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-  import tagListModel from '@/models/tagListModel';
   import FormItem from '@/components/money/FormItem.vue';
   import Button from '@/components/Button.vue';
   @Component({
     components: {Button, FormItem}
   })
   export default class EditLabel extends Vue {
-    tag?: { id: string; name: string } = undefined;
-    namePart: string | undefined;
+    tag?: Tag = undefined;
     created() {
-      const id = this.$route.params.id;
-      tagListModel.fetch();
-      const tags = tagListModel.data;
-      const tag = tags.filter(t => t.id === id)[0];
-      if (tag) {
-        this.tag = tag;
-      } else {
+      this.tag=window.findTag(this.$route.params.id)
+      if (!this.tag) {
         this.$router.replace('/404'); //使用 replace ，以防止跳转 404 不能回退
       }
     }
     update(name: string) {
       if (this.tag) {
-        tagListModel.update(this.tag.id, name);
+        window.updateTag(this.tag.id, name);
       }
     }
 
     remove() {
       if (this.tag) {
-       if( tagListModel.remove(this.tag.id)){
-         this.$router.back()
-       }else{
-         window.alert('删除失败')
-       }
-
+        if (window.removeTag(this.tag.id)) {
+          this.$router.back();
+        } else {
+          window.alert('刪除失敗');
+        }
       }
     }
     goBack(){
