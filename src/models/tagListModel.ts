@@ -7,6 +7,8 @@ type TagListModel = {
   data: Tag[];
   fetch: () => Tag[];
   create: (name: string) => 'success' | 'duplicated' | 'null'; // 联合类型
+  update: (id: string, name: string) => 'success' | 'not found' | 'duplicated' | 'null';
+  remove: (id: string) => boolean;
   save: () => void; //void 表示 空
 }
 const tagListModel: TagListModel = {
@@ -29,11 +31,43 @@ const tagListModel: TagListModel = {
       return 'null';
     }
     this.data.push({id: realName, name: realName});
+    console.log(this.data);
     this.save();
     return 'success';
   },
+  update(id, name) {
+    const idList = this.data.map(item => item.id);
+    if (idList.indexOf(id) >= 0) {
+      const names = this.data.map(item => item.name);
+      const trueName = name.replace(/(^\s*)|(\s*$)/g, '');
+      if (name.length === 0) {
+        return 'null';
+      } else if (names.indexOf(name) >= 0) {
+        return 'duplicated';
+      } else {
+        const tag = this.data.filter(item => item.id === id)[0];
+        tag.name = trueName;
+        this.save();
+        return 'success';
+      }
+    } else {
+      return 'not found';
+    }
+  },
+  remove(id: string) {
+    let index = -1;
+    for (let i = 0; i < this.data.length; i++) {
+      if (this.data[i].id === id) {
+        index = i;
+        break;
+      }
+    }
+    this.data.splice(index, 1);
+    this.save();
+    return true;
+  },
   save() {
-    window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.data))
+    window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.data));
   }
 };
 export default tagListModel;
