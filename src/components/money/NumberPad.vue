@@ -9,7 +9,7 @@
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
-      <button @click="add">
+      <button @click="add" value="+">
         <Icon name="add"/>
       </button>
       <button @click="inputContent">7</button>
@@ -35,10 +35,6 @@
   @Component
   export default class NumberPad extends Vue {
     output = '0';
-    n1=0
-    n2=0
-    n='0'
-    sign=''
     result=0
     inputContent(event: MouseEvent) {
       const button = (event.target as HTMLButtonElement); //强制指定类型
@@ -47,7 +43,10 @@
       if (this.output.length === 16) {
         return;
       }
-      if (this.output === '0') {
+      if(this.result!==0){
+        this.result=0;
+        this.output=''}
+      else if (this.output === '0') {
         if ('0123456789'.indexOf(input) >= 0) {
           this.output = input;
         } else {
@@ -75,31 +74,17 @@
     }
 
     add() {
-      this.n=this.output
-      this.n1=parseInt(this.n)
-      this.sign='+'
-      this.output='0'
+      this.output+='+'
     }
 
     reduce() {
-      this.n1=parseInt(this.output)
-      this.sign='-'
-      this.output='0'
+      this.output+='-'
     }
-
     ok() {
-      this.n2=parseInt(this.output)
-      if(this.sign==='+'){
-        this.result=this.n1 + this.n2
-      }else if(this.sign==='-'){
-        this.result=this.n1-this.n2
-      }else{
-        this.result=parseInt(this.output)
-      }
-      console.log(this.result);
+      this.result=eval(this.output)
+      this.output=this.result.toString()
       this.$emit('update:value',this.result)
       this.$emit('submit',this.result)
-      this.output='0'
     }
 
 
