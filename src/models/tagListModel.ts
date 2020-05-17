@@ -1,3 +1,5 @@
+import createId from '@/lib/createId';
+
 const localStorageKeyName = 'tagList';
 type Tag = {
   id: string;
@@ -20,6 +22,7 @@ const tagListModel: TagListModel = {
   },
   create(name) {
     //this.data=[{id:'1',name:'1'},{id:'2',name:'2'}]
+
     const names = this.data.map(item => item.name);
     //去除首尾空格
     const realNameList = names.map(item => item.replace(/(^\s*)|(\s*$)/g, ''));
@@ -30,8 +33,8 @@ const tagListModel: TagListModel = {
     if (realName.length === 0) {
       return 'null';
     }
-    this.data.push({id: realName, name: realName});
-    console.log(this.data);
+    const id=createId().toString();
+    this.data.push({id, name: realName});
     this.save();
     return 'success';
   },

@@ -36,7 +36,6 @@
       const tag = tags.filter(t => t.id === id)[0];
       if (tag) {
         this.tag = tag;
-        console.log(this.tag);
       } else {
         this.$router.replace('/404'); //使用 replace ，以防止跳转 404 不能回退
       }
@@ -49,7 +48,12 @@
 
     remove() {
       if (this.tag) {
-        tagListModel.remove(this.tag.id);
+       if( tagListModel.remove(this.tag.id)){
+         this.$router.back()
+       }else{
+         window.alert('删除失败')
+       }
+
       }
     }
     goBack(){
