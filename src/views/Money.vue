@@ -9,7 +9,7 @@
                 @update:value="onUpdateNotes"/>
     </div>
     <!--    <Tags :data-source.sync="tags" @update:value="onUpdateTag"/>-->
-    <Tags @update:value="onUpdateTags"/>
+    <Tags />
   </Layout>
 </template>
 
@@ -38,9 +38,7 @@
     created(){
       this.$store.commit('fetchRecords')
     }
-    onUpdateTags(value: []){
-      this.record.tags = value;
-    }
+
     onUpdateNotes(value: string) {
       this.record.notes = value;
     }
