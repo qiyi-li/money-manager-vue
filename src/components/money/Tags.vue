@@ -20,14 +20,11 @@
   import {mixins} from 'vue-class-component';
 
 
-  @Component({
-    computed: {
-      tagList() {
-        return this.$store.state.tagList;
-      }
-    }
-  })
+  @Component
   export default class Tags extends mixins(TagHelper) {
+    get tagList(){
+      return this.$store.state.tagList;
+    }
     selectedTags: string[] = [];
 
     created(){
