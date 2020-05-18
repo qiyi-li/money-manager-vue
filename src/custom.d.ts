@@ -1,3 +1,11 @@
+/*import Vue from'vue'
+
+declare module 'vue/types/vue'{
+  interface vue{
+    $store2:any
+  }
+}*/
+
 type RecordItem = {
   tags: string[];
   notes: string;

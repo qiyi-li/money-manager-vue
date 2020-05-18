@@ -20,24 +20,25 @@
   import FormItem from '@/components/money/FormItem.vue';
   import Tags from '@/components/money/Tags.vue';
   import {Component} from 'vue-property-decorator';
-  import store from '@/store/index2.ts';
+  import oldStore from '@/store/index2.ts';
+  import store from '@/store/index.ts'
 
   //TS 的类型声明
   @Component({
     components: {Tags, FormItem, Types, NumberPad},
     computed: {
       count() {
-        return store.count;
+        return store.state.count;
       },
       recordList() {
-        return store.recordList;
+        return oldStore.recordList;
       },
     }
   })
   export default class Money extends Vue {
 
     add() {
-      store.addCount();
+      oldStore.addCount();
     }
 
     record: RecordItem = {
@@ -55,7 +56,7 @@
       this.record.amount = value;
     }
     saveRecord() {
-      store.createRecord(this.record)
+      oldStore.createRecord(this.record)
     }
   }
 </script>
