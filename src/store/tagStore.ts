@@ -46,9 +46,9 @@ const tagStore = {
     if (idList.indexOf(id) >= 0) {
       const names = this.tagList.map(item => item.name);
       const trueName = name.replace(/(^\s*)|(\s*$)/g, '');
-      if (name.length === 0) {
+      if (trueName.length === 0) {
         return 'null';
-      } else if (names.indexOf(name) >= 0) {
+      } else if (names.indexOf(trueName) >= 0) {
         return 'duplicated';
       } else {
         const tag = this.tagList.filter(item => item.id === id)[0];
@@ -62,7 +62,8 @@ const tagStore = {
   },
   saveTags() {
     window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.tagList));
-  }
+  },
+
 };
 tagStore.fetchTags();
 export default tagStore;

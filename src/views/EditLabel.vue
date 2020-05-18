@@ -31,6 +31,7 @@
     }
     created() {
       const id = this.$route.params.id;
+      this.$store.commit('fetchTags')
       this.$store.commit('setCurrentTag', id);
       if (!this.tag) {
         this.$router.replace('/404'); //使用 replace ，以防止跳转 404 不能回退
@@ -38,20 +39,14 @@
     }
     update(name: string) {
       if (this.tag) {
-        //TODO
-        // store.updateTag(this.tag.id, name);
+        this.$store.commit('updateTag',
+          {id:this.tag.id,name})
       }
     }
 
     remove() {
       if (this.tag) {
-        //TODO
-        return
-        /*if (store.removeTag(this.tag.id)) {
-          this.$router.back();
-        } else {
-          window.alert('刪除失敗');
-        }*/
+        this.$store.commit('removeTag',this.tag.id)
       }
     }
     goBack(){
