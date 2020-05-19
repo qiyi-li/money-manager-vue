@@ -8,14 +8,16 @@ Vue.use(Vuex); // 把 store 绑定到 vue.prototype 上面  即 vue.prototype.$s
 
 type RootState={
   recordList: RecordItem[];
-  tagList:  Tag[];
+  tagList: Tag[];
   currentTag?: Tag;
+  alterTag?: Tag;
 }
 const store = new Vuex.Store({
   state: {
-    recordList: [] ,
-    tagList: [] ,
-    currentTag:undefined
+    recordList: [],
+    tagList: [],
+    alterTag: undefined,
+    currentTag: undefined
   }as RootState,
   mutations: { // methods
 
@@ -45,9 +47,11 @@ const store = new Vuex.Store({
       const realName = name.replace(/(^\s*)|(\s*$)/g, '');
       if (realNameList.indexOf(realName) >= 0) {
         window.alert('标签名重复');
+        return
       }
       if (realName.length === 0) {
         window.alert('标签不能为空');
+        return
       }
       const id = createId().toString();
       state.tagList.push({id, name: realName});
@@ -58,23 +62,33 @@ const store = new Vuex.Store({
       window.localStorage.setItem('tagList', JSON.stringify(state.tagList));
     },
     updateTag(state, payload: { id: string; name: string }) {
-      const {id,name}=payload
-      const idList = state.tagList.map(item => item.id);
-      if (idList.indexOf(id) >= 0) {
-        const names = state.tagList.map(item => item.name);
-        const trueName = name.replace(/(^\s*)|(\s*$)/g, '');
-        if (trueName.length === 0) {
-          window.alert('输入标签为空')
-        } else if (names.indexOf(name) >= 0) {
-          window.alert('输入标签重复')
-        } else {
-          const tag = state.tagList.filter(item => item.id === id)[0];
-          tag.name = trueName;
-          store.commit('saveTags');
+      state.alterTag = payload;
+    },
+    submit(state) {
+      if(state.alterTag){
+        const {id,name}=state.alterTag
+        const idList = state.tagList.map(item => item.id);
+        if (idList.indexOf(id) >= 0) {
+          const names = state.tagList.map(item => item.name);
+          console.log(names);
+          const trueName = name.replace(/(^\s*)|(\s*$)/g, '');
+          if (trueName.length === 0) {
+            window.alert('输入标签为空');
+            return
+          } else if (names.indexOf(trueName) >= 0) {
+            window.alert('输入标签重复');
+            return
+          } else {
+            const tag = state.tagList.filter(item => item.id === id)[0];
+            tag.name = trueName;
+            store.commit('saveTags');
+            router.back();
+          }
         }
       }
+
     },
-    removeTag(state,id: string) {
+    removeTag(state, id: string) {
       let index = -1;
       for (let i = 0; i < state.tagList.length; i++) {
         if (state.tagList[i].id === id) {
@@ -82,12 +96,12 @@ const store = new Vuex.Store({
           break;
         }
       }
-      if(index>=0){
+      if (index >= 0) {
         state.tagList.splice(index, 1);
         store.commit('saveTags');
-        router.back()
-      }else{
-        window.alert('删除失败')
+        router.back();
+      } else {
+        window.alert('删除失败');
       }
 
     },

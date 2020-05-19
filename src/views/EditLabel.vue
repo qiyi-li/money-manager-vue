@@ -3,7 +3,7 @@
     <div class="navBar">
       <Icon class="leftIcon"  name="left" @click="goBack"/>
       <span class="title">编辑标签</span>
-      <Icon class="rightIcon"  name="提交" @click="update"/>
+      <Icon class="rightIcon"  name="提交" @click="submit"/>
     </div>
     <div class="form-wrapper">
       <FormItem :value="currentTag.name"
@@ -39,9 +39,11 @@
     }
     update(name: string) {
       if (this.currentTag) {
-        this.$store.commit('updateTag',
-          {id:this.currentTag.id,name})
+        this.$store.commit('updateTag',{id:this.currentTag.id,name})
       }
+    }
+    submit(){
+      this.$store.commit('submit')
     }
 
     remove() {
