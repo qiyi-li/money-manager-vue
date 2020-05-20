@@ -34,12 +34,9 @@
     toggle(tag: string) {
       const index = this.selectedTags.indexOf(tag);
       if (index >= 0) {
-        console.log('hhh');
         this.selectedTags.splice(index, 1);
       } else {
-        console.log('hhh');
         this.selectedTags.push(tag);
-        console.log(this.selectedTags);
       }
       this.$emit('update:value', this.selectedTags);
     }
