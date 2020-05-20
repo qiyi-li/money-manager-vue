@@ -9,13 +9,13 @@
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
-      <button @click="add" value="+">
+      <button @click="add" value="+" class="icon">
         <Icon name="add"/>
       </button>
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
-      <button @click="reduce">
+      <button @click="reduce" class="icon">
         <Icon name="reduce"/>
       </button>
       <button class="ok" @click="ok ">OK</button>
@@ -43,10 +43,10 @@
       if (this.output.length === 16) {
         return;
       }
-      if(this.result!==0){
-        this.result=0;
-        this.output=''}
-      else if (this.output === '0') {
+      if (this.result !== 0) {
+        this.result = 0;
+        this.output = '';
+      } else if (this.output === '0') {
         if ('0123456789'.indexOf(input) >= 0) {
           this.output = input;
         } else {
@@ -81,10 +81,15 @@
       this.output+='-'
     }
     ok() {
-      this.result=eval(this.output)
-      this.output=this.result.toString()
-      this.$emit('update:value',this.result)
-      this.$emit('submit',this.result)
+      if (this.output[this.output.length - 1] === '+' || this.output[this.output.length - 1] === '-') {
+        window.alert('计算错误');
+        this.output = '0';
+      } else {
+        this.result = eval(this.output);
+        this.output = this.result.toString();
+      }
+      this.$emit('update:value', this.result);
+      this.$emit('submit', this.result);
     }
 
 
@@ -137,35 +142,30 @@
 
       }
 
-      .zero {
-        width: 25%;
-      }
-
       .ac {
         color: $color-highlight;
-        font-size: 1.3em;
+        font-size: 1.4em;
         font-weight: 500;
       }
 
       > .icon {
-        height: 1.3em;
-        width: 1.3em;
         color: $color-highlight;
+        font-size: 1.4em;
       }
 
-      @keyframes move {
-        from {
-          background: rgba(0, 0, 0, 0);
-          font-weight: 500;
+
+      button:not(.ok):active {
+        @keyframes move {
+          from {
+            background: rgba(0, 0, 0, 0);
+            font-weight: 500;
+          }
+          to {
+            background-color: rgba(0, 0, 0, 0.1);
+            font-weight: 700;
+          }
         }
-        to {
-          background-color: rgba(0, 0, 0, 0.1);
-          font-weight: 600;
-        }
-      }
-      button:not(.ok):focus {
-        animation: .2s linear ;
-        background-color: rgba(0, 0, 0, 0.1);
+        animation: move .3s linear;
         border-radius: 50%;
       }
     }
