@@ -1,7 +1,8 @@
 <template>
-  <ul class="tabs">
+  <ul class="tabs" :class="{[classPrefix+'-tabs']:classPrefix}">
     <li v-for="item in dataSource" :key="item.value"
         :class="liClass(item)"
+        class="tab-item"
         @click="select(item)">{{item.text}}
       <div class="underline"></div>
     </li>
@@ -42,7 +43,7 @@
     text-align: center;
     font-size: 24px;
   }
-  li {
+  .tab-item {
     background-color: rgb(247,247,247);
 
     width: 50%;
@@ -51,28 +52,29 @@
     justify-content: center;
     align-items: center;
     position: relative;
-
-  }
-  li.selected {
-    color: #fd6600;
-    transition: color .3s;
-
     .underline {
-      width: 100%;
-      transition: width .3s;
+      background-color: #fd6600;
+      margin-top: -3px;
+      height: 3px;
+      width: 0;
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%);
+      bottom: 0;
+    }
+    &.selected {
+      color: #fd6600;
+      transition: color .3s;
+
+      .underline {
+        width: 100%;
+        transition: width .3s;
+      }
     }
   }
 
-  .underline {
-    background-color: #fd6600;
-    margin-top: -3px;
-    height: 3px;
-    width: 0;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%);
-    bottom: 0;
-  }
+
+
 
 
 </style>
