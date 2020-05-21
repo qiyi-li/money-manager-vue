@@ -23,6 +23,8 @@
     readonly value!: string;
     @Prop(String)
     classPrefix?: string;
+    @Prop({type: String, default: ''})
+    height!: string;
 
     liClass(item: DataSourceItem) {
       return {
@@ -45,9 +47,8 @@
   }
   .tab-item {
     background-color: rgb(247,247,247);
-
-    width: 50%;
     height: 64px;
+    width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
