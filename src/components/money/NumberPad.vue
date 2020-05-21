@@ -84,12 +84,15 @@
       if (this.output[this.output.length - 1] === '+' || this.output[this.output.length - 1] === '-') {
         window.alert('计算错误');
         this.output = '0';
+        return
       } else {
         this.result = eval(this.output);
         this.output = this.result.toString();
       }
       this.$emit('update:value', this.result);
       this.$emit('submit', this.result);
+      this.output = '0';
+
     }
 
 
