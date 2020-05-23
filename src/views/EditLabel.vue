@@ -78,6 +78,10 @@
       height: 18px;
       width: 18px;
     }
+    >.rightIcon:active{
+      color: #fd6600;
+
+    }
     button {
       background-color: inherit;
       border: none;
@@ -91,5 +95,16 @@
     align-items:center;
     justify-content: space-around;
     margin-top: 44px;
+  }
+  .button>button:active{
+    @keyframes changeColor {
+      from{
+        background-color: inherit;
+      }
+      to{
+        background-color: #fd6600;
+      }
+    }
+    animation:changeColor 100ms linear;
   }
 </style>

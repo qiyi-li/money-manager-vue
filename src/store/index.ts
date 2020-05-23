@@ -17,14 +17,15 @@ const store = new Vuex.Store({
   mutations: { // methods
 
     fetchRecords(state) {
-      state.recordList=JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[]
+      state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
     },
-    createRecord(state, record) {
-      const record2: RecordItem = clone(record);
+    createRecord(state, record: RecordItem) {
+      const record2 = clone(record);
       record2.createdAt = new Date().toISOString();
       state.recordList.push(record2); // 可选链语法
       //this.recordList && this.recordList.push(record2);
       store.commit('saveRecords');
+      window.alert('已保存');
     },
     saveRecords(state) {
       window.localStorage.setItem('recordList',
@@ -35,6 +36,15 @@ const store = new Vuex.Store({
     },
     fetchTags(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+      if (!state.tagList || state.tagList.length === 0) {
+        state.tagList=[
+          {id: createId().toString(), name: '衣'},
+          {id: createId().toString(), name: '食'},
+          {id: createId().toString(), name: '住'},
+          {id: createId().toString(), name: '行'},
+        ]
+        store.commit('saveTags');
+      }
     },
     createTag(state, name: string) {
       const names = state.tagList.map(item => item.name);
@@ -84,6 +94,11 @@ const store = new Vuex.Store({
 
     },
     removeTag(state, id: string) {
+      if (state.tagList.length === 1) {
+        window.alert('请保留至少一个标签');
+        router.back();
+        return;
+      }
       let index = -1;
       for (let i = 0; i < state.tagList.length; i++) {
         if (state.tagList[i].id === id) {
@@ -91,13 +106,16 @@ const store = new Vuex.Store({
           break;
         }
       }
+
       if (index >= 0) {
         state.tagList.splice(index, 1);
         store.commit('saveTags');
         router.back();
       } else {
         window.alert('删除失败');
+
       }
+
 
     },
   }
