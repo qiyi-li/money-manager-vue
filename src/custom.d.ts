@@ -14,7 +14,7 @@ type RootState={
 }
 
 type RecordItem = {
-  tags: string[];
+  tags: Tag[];
   notes: string;
   type: string;
   amount: number; // 数据类型 object | string | number | undefined | boor | null | symbol
