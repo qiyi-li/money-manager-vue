@@ -45,7 +45,6 @@
       }
       if (this.result !== 0) {
         this.result = 0;
-        this.output = '';
       } else if (this.output === '0') {
         if ('0123456789'.indexOf(input) >= 0) {
           this.output = input;

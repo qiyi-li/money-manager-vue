@@ -1,6 +1,6 @@
 <template>
   <Layout class-prefix="layout">
-    <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
+    <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
     <Tabs :data-source="recordTypeList"
           :value.sync="record.type"/>
     <div class="notes">
@@ -46,9 +46,6 @@
       this.record.notes = value;
     }
 
-    onUpdateAmount(value: number) {
-      this.record.amount = value;
-    }
     saveRecord() {
       this.$store.commit('createRecord',this.record)
     }
