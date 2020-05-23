@@ -45,6 +45,7 @@
       }
       if (this.result !== 0) {
         this.result = 0;
+        this.output=''
       } else if (this.output === '0') {
         if ('0123456789'.indexOf(input) >= 0) {
           this.output = input;
@@ -80,6 +81,7 @@
       this.output+='-'
     }
     ok() {
+      if(this.output==='0'){window.alert('请输入金额'); return}
       if (this.output[this.output.length - 1] === '+' || this.output[this.output.length - 1] === '-') {
         window.alert('计算错误');
         this.output = '0';
