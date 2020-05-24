@@ -4,7 +4,7 @@
 set -e
 
 # 构建
-yarn run build
+yarn build
 
 # cd 到构建输出的目录下
 cd dist
@@ -21,5 +21,6 @@ git commit -m 'deploy'
 
 # 部署到 https://<USERNAME>.github.io/<REPO>
  git push -f git@gitee.com:liubai-a/liubaijizhangwebsite.git master:gh-pages
+# git push -f git@github.com:a-lei-7/money-manager-webseite.git master:gh-pages
 
 cd -

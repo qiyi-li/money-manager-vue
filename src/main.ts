@@ -28,13 +28,12 @@ window.onload = function () {
 };
 
 if (document.documentElement.clientWidth > 500) {
-  console.log(1);
   window.alert('为保证浏览效果，请用手机打开此页面');
   const img = document.createElement('img',);
-  img.src = 'qrcode.png';
+  img.src = './qrcode1.png';
   img.style.position = 'fixed';
   img.style.left = '50%';
-  img.style.right = '50%';
+  img.style.top = '50%';
   img.style.transform = 'translate(-50%,-50%)';
   img.style.boxShadow='0 0 10px rgba(0,0,0,0.25)'
   document.body.appendChild(img);
