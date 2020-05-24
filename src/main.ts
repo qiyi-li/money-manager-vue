@@ -28,9 +28,10 @@ window.onload = function () {
 };
 
 if (document.documentElement.clientWidth > 500) {
+  console.log(1);
   window.alert('为保证浏览效果，请用手机打开此页面');
   const img = document.createElement('img',);
-  img.src='/QR-code.png'
+  img.src = 'qrcode.png';
   img.style.position = 'fixed';
   img.style.left = '50%';
   img.style.right = '50%';
